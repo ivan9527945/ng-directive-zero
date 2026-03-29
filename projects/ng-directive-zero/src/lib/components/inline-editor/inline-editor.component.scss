@@ -1,0 +1,283 @@
+// Cyberpunk Inline Editor
+
+$accent: #00ff88;
+$accent-secondary: #ff00ff;
+$bg: #0a0a0f;
+$bg-card: #12121a;
+$bg-muted: #1c1c2e;
+$border: #2a2a3a;
+$fg: #e0e0e0;
+$fg-muted: #6b7280;
+$destructive: #ff3366;
+
+.ag-inline-editor {
+  width: 420px;
+  background: $bg-card;
+  border: 1px solid $border;
+  clip-path: polygon(
+    0 10px, 10px 0,
+    calc(100% - 10px) 0, 100% 10px,
+    100% calc(100% - 10px), calc(100% - 10px) 100%,
+    10px 100%, 0 calc(100% - 10px)
+  );
+  font-family: 'JetBrains Mono', monospace;
+  box-shadow: 0 0 20px rgba($accent, 0.06), 0 10px 40px rgba(0, 0, 0, 0.7);
+  position: relative;
+
+  // Top neon line
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10px;
+    right: 10px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, $accent, transparent);
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+// Header
+.ag-editor-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid $border;
+  background: $bg;
+}
+
+.ag-editor-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $fg-muted;
+  text-align: left;
+  cursor: pointer;
+  transition: color 150ms;
+
+  &::before {
+    content: '>';
+    color: rgba($accent, 0.5);
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  svg {
+    width: 12px;
+    height: 12px;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    transform: rotate(-90deg);
+    transition: transform 200ms ease, stroke 150ms;
+
+    &.expanded {
+      transform: rotate(0deg);
+    }
+  }
+
+  &:hover {
+    color: $fg;
+
+    svg { stroke: $fg; }
+  }
+}
+
+// Body
+.ag-editor-body {
+  padding: 14px 16px;
+}
+
+.ag-editor-input {
+  width: 100%;
+  padding: 10px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  color: $accent;
+  background: $bg;
+  border: 1px solid $border;
+  clip-path: polygon(0 5px, 5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px));
+  resize: vertical;
+  box-sizing: border-box;
+  transition: border-color 150ms, box-shadow 150ms;
+
+  &::placeholder {
+    color: rgba($fg-muted, 0.5);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: rgba($accent, 0.5);
+    box-shadow: 0 0 8px rgba($accent, 0.1), inset 0 0 4px rgba($accent, 0.04);
+  }
+}
+
+// Footer
+.ag-editor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 14px;
+}
+
+.ag-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 14px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 150ms;
+  clip-path: polygon(0 4px, 4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px));
+
+  &:active { transform: scale(0.96); }
+}
+
+.ag-btn-delete {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid rgba($destructive, 0.25);
+  color: rgba($destructive, 0.5);
+
+  svg { width: 16px; height: 16px; stroke-width: 1.5; }
+
+  &:hover {
+    background: rgba($destructive, 0.12);
+    border-color: rgba($destructive, 0.5);
+    color: $destructive;
+    box-shadow: 0 0 8px rgba($destructive, 0.2);
+  }
+}
+
+.ag-btn-group {
+  display: flex;
+  gap: 8px;
+}
+
+.ag-btn-cancel {
+  border: 1px solid $border;
+  color: $fg-muted;
+
+  &:hover {
+    border-color: rgba($fg-muted, 0.4);
+    color: $fg;
+    background: rgba($fg-muted, 0.05);
+  }
+}
+
+.ag-btn-save {
+  border: 1px solid $accent;
+  color: $accent;
+  text-shadow: 0 0 5px rgba($accent, 0.3);
+
+  &:hover {
+    background: $accent;
+    color: #0a0a0f;
+    text-shadow: none;
+    box-shadow: 0 0 10px rgba($accent, 0.4);
+  }
+}
+
+// Styles detail section
+.ag-editor-styles {
+  border-top: 1px solid $border;
+  max-height: 250px;
+  overflow: hidden;
+  animation: slideDown 0.15s ease-out;
+}
+
+@keyframes slideDown {
+  from { max-height: 0; opacity: 0; }
+  to { max-height: 250px; opacity: 1; }
+}
+
+.ag-styles-header {
+  padding: 10px 16px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $fg-muted;
+  background: $bg;
+  border-bottom: 1px solid $border;
+
+  &::before { content: '// '; color: rgba($accent, 0.4); }
+}
+
+.ag-styles-list {
+  padding: 8px 16px 12px;
+  max-height: 200px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-track { background: $bg; }
+  &::-webkit-scrollbar-thumb { background: $border; }
+}
+
+.ag-style-item {
+  display: flex;
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba($border, 0.4);
+
+  &:last-child { border-bottom: none; }
+}
+
+.ag-style-key {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: $fg-muted;
+  min-width: 120px;
+  flex-shrink: 0;
+}
+
+.ag-style-value {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: $accent-secondary;
+  word-break: break-word;
+  opacity: 0.8;
+}
+
+.ag-styles-empty {
+  padding: 20px 0;
+  text-align: center;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: rgba($fg-muted, 0.5);
+
+  &::before { content: '// '; color: rgba($accent, 0.3); }
+}
+
+@media (max-width: 768px) {
+  .ag-inline-editor {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    clip-path: polygon(0 10px, 10px 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%) !important;
+    transform: none !important;
+    margin: 0 !important;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 9999999 !important;
+  }
+}

@@ -1,0 +1,245 @@
+// Cyberpunk Overlay — Highlight, Tooltip, Breadcrumb, Markers
+
+$accent: #00ff88;
+$accent-secondary: #ff00ff;
+$accent-tertiary: #00d4ff;
+$bg: #0a0a0f;
+$bg-card: #12121a;
+$border: #2a2a3a;
+$fg: #e0e0e0;
+$fg-muted: #6b7280;
+$destructive: #ff3366;
+
+// ── Click capture layer ────────────────────────────────
+.ag-click-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999990;
+  cursor: crosshair;
+  background: transparent;
+  pointer-events: auto;
+}
+
+// ── Highlight box ──────────────────────────────────────
+.ag-highlight {
+  pointer-events: none;
+  border: 1px solid $accent;
+  background: rgba($accent, 0.04);
+  box-shadow:
+    0 0 0 1px rgba($accent, 0.3),
+    0 0 10px rgba($accent, 0.15),
+    inset 0 0 10px rgba($accent, 0.04);
+  // Intentionally no border-radius — sharp chamfered feel via shadow only
+}
+
+// ── Tooltip ───────────────────────────────────────────
+.ag-tooltip {
+  background: $bg-card;
+  border: 1px solid rgba($accent, 0.25);
+  color: $accent;
+  padding: 5px 10px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 0 8px rgba($accent, 0.15), 0 4px 16px rgba(0, 0, 0, 0.5);
+  clip-path: polygon(0 4px, 4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px));
+
+  &::before {
+    content: '> ';
+    color: rgba($accent, 0.5);
+  }
+}
+
+// ── Breadcrumb ────────────────────────────────────────
+.ag-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba($bg-card, 0.96);
+  border: 1px solid $border;
+  backdrop-filter: blur(8px);
+  padding: 5px 10px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  clip-path: polygon(0 5px, 5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px));
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 12px rgba($accent, 0.06);
+  pointer-events: auto;
+  max-width: 90vw;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+
+  &::-webkit-scrollbar { height: 3px; }
+  &::-webkit-scrollbar-thumb { background: rgba($accent, 0.2); }
+}
+
+.ag-breadcrumb-hint {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba($fg-muted, 0.6);
+  margin-right: 4px;
+  white-space: nowrap;
+}
+
+.ag-breadcrumb-item {
+  background: rgba($fg-muted, 0.06);
+  border: 1px solid rgba($fg-muted, 0.15);
+  color: $fg-muted;
+  padding: 3px 8px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 150ms ease;
+  white-space: nowrap;
+  clip-path: polygon(0 3px, 3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px));
+
+  &:hover {
+    background: rgba($fg-muted, 0.12);
+    border-color: rgba($fg-muted, 0.3);
+    color: $fg;
+  }
+
+  &.ag-breadcrumb-active {
+    background: rgba($accent-tertiary, 0.1);
+    border-color: rgba($accent-tertiary, 0.4);
+    color: $accent-tertiary;
+    box-shadow: 0 0 6px rgba($accent-tertiary, 0.2);
+  }
+
+  &.ag-breadcrumb-component {
+    color: rgba($accent-secondary, 0.7);
+    border-color: rgba($accent-secondary, 0.15);
+
+    &.ag-breadcrumb-active {
+      background: rgba($accent-secondary, 0.1);
+      border-color: rgba($accent-secondary, 0.4);
+      color: $accent-secondary;
+      box-shadow: 0 0 6px rgba($accent-secondary, 0.2);
+    }
+  }
+}
+
+.ag-breadcrumb-separator {
+  color: rgba($fg-muted, 0.3);
+  font-size: 12px;
+  user-select: none;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.ag-breadcrumb-close {
+  background: transparent;
+  border: 1px solid rgba($destructive, 0.3);
+  color: rgba($destructive, 0.6);
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 11px;
+  padding: 0;
+  line-height: 1;
+  transition: all 150ms ease;
+  margin-left: 6px;
+  clip-path: polygon(0 4px, 4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px));
+
+  &:hover {
+    background: rgba($destructive, 0.15);
+    border-color: $destructive;
+    color: $destructive;
+    box-shadow: 0 0 6px rgba($destructive, 0.3);
+  }
+}
+
+// ── Marker bubbles ────────────────────────────────────
+.ag-marker-bubble {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  clip-path: polygon(0 5px, 5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px));
+  color: #0a0a0f;
+  font-family: 'Orbitron', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5), 0 0 6px currentColor;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 999997;
+  transform: translate(-50%, -50%);
+  animation: markerPop 0.2s ease-out;
+  transition: filter 150ms ease, transform 150ms ease;
+
+  &:hover {
+    transform: translate(-50%, -50%) scale(1.15);
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes markerPop {
+  0%   { transform: translate(-50%, -50%) scale(0) rotate(-10deg); opacity: 0; }
+  60%  { transform: translate(-50%, -50%) scale(1.2) rotate(3deg); }
+  100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+}
+
+// ── Recording hint ────────────────────────────────────
+.ag-recording-hint {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999999;
+  pointer-events: none;
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .ag-recording-hint { display: none !important; }
+}
+
+.ag-hint-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: $bg-card;
+  border: 1px solid rgba($destructive, 0.4);
+  color: $fg-muted;
+  padding: 8px 16px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  clip-path: polygon(0 5px, 5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px));
+  box-shadow: 0 0 12px rgba($destructive, 0.15), 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.ag-hint-icon {
+  animation: hintBlink 1s step-end infinite;
+  filter: drop-shadow(0 0 4px $destructive);
+}
+
+@keyframes hintBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.ag-hint-text {
+  kbd {
+    display: inline-block;
+    background: rgba($accent, 0.08);
+    border: 1px solid rgba($accent, 0.3);
+    padding: 1px 5px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: $accent;
+    clip-path: polygon(0 2px, 2px 0, calc(100% - 2px) 0, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px));
+  }
+}

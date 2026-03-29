@@ -1,0 +1,414 @@
+// Cyberpunk Annotation Panel — Terminal Variant
+
+$accent: #00ff88;
+$accent-secondary: #ff00ff;
+$accent-tertiary: #00d4ff;
+$bg: #0a0a0f;
+$bg-card: #12121a;
+$bg-muted: #1c1c2e;
+$bg-section: #0f0f18;
+$border: #2a2a3a;
+$border-accent: rgba(0, 255, 136, 0.2);
+$fg: #e0e0e0;
+$fg-muted: #6b7280;
+$destructive: #ff3366;
+$success: #00ff88;
+
+:host {
+  display: block;
+}
+
+.ag-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 380px;
+  max-height: calc(100vh - 40px);
+  background: $bg;
+  border: 1px solid $border;
+  clip-path: polygon(
+    0 12px, 12px 0,
+    calc(100% - 12px) 0, 100% 12px,
+    100% calc(100% - 12px), calc(100% - 12px) 100%,
+    12px 100%, 0 calc(100% - 12px)
+  );
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  color: $fg;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 999999;
+  animation: slideInRight 0.15s ease-out;
+  box-shadow: 0 0 20px rgba($accent, 0.08), 0 8px 32px rgba(0, 0, 0, 0.6);
+
+  // Top neon line
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 12px;
+    right: 12px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, $accent, transparent);
+    z-index: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+// ── Header ────────────────────────────────────────────
+.ag-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: $bg-card;
+  border-bottom: 1px solid $border;
+  flex-shrink: 0;
+  position: relative;
+
+  // Terminal "traffic light" dots
+  &::before {
+    content: '● ● ●';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 7px;
+    letter-spacing: 3px;
+    color: transparent;
+    text-shadow: 0 0 0 #ff3366, 8px 0 0 #f59e0b, 16px 0 0 $accent;
+    pointer-events: none;
+  }
+}
+
+.ag-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 36px;
+}
+
+.ag-component-icon {
+  font-size: 14px;
+}
+
+.ag-component-name {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: $accent;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 6px rgba($accent, 0.4);
+}
+
+.ag-close-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: transparent;
+  border: 1px solid rgba($destructive, 0.3);
+  color: $fg-muted;
+  cursor: pointer;
+  transition: all 150ms;
+  clip-path: polygon(0 4px, 4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px));
+
+  svg { width: 13px; height: 13px; }
+
+  &:hover {
+    background: rgba($destructive, 0.15);
+    border-color: $destructive;
+    color: $destructive;
+    box-shadow: 0 0 6px rgba($destructive, 0.3);
+  }
+}
+
+// ── Sections ─────────────────────────────────────────
+.ag-section {
+  border-bottom: 1px solid $border;
+  flex-shrink: 0;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+// ── Info section ──────────────────────────────────────
+.ag-info-section {
+  padding: 10px 16px;
+  background: $bg-section;
+}
+
+.ag-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 7px;
+
+  &:last-child { margin-bottom: 0; }
+}
+
+.ag-info-label {
+  flex-shrink: 0;
+  width: 66px;
+  color: $fg-muted;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.ag-info-value {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: $accent-tertiary;
+  background: rgba($accent-tertiary, 0.06);
+  border: 1px solid rgba($accent-tertiary, 0.15);
+  padding: 1px 6px;
+  clip-path: polygon(0 3px, 3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px));
+}
+
+.ag-directive-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.ag-directive-tag {
+  background: rgba($accent-secondary, 0.08);
+  border: 1px solid rgba($accent-secondary, 0.2);
+  color: $accent-secondary;
+  padding: 1px 7px;
+  font-size: 10px;
+  font-family: 'Share Tech Mono', monospace;
+  letter-spacing: 0.05em;
+  clip-path: polygon(0 3px, 3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px));
+}
+
+// ── Collapsible section header ─────────────────────────
+.ag-section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  background: $bg-card;
+  cursor: pointer;
+  user-select: none;
+  transition: background 100ms;
+
+  &:hover {
+    background: $bg-muted;
+  }
+}
+
+.ag-section-icon {
+  font-size: 9px;
+  color: rgba($accent, 0.5);
+  width: 12px;
+}
+
+.ag-section-title {
+  flex: 1;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $fg-muted;
+}
+
+.ag-section-count {
+  background: rgba($accent, 0.08);
+  border: 1px solid rgba($accent, 0.2);
+  color: $accent;
+  padding: 1px 7px;
+  font-size: 10px;
+  clip-path: polygon(0 3px, 3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px));
+}
+
+// ── Section content ────────────────────────────────────
+.ag-section-content {
+  padding: 6px 16px 10px;
+  max-height: 180px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-track { background: $bg; }
+  &::-webkit-scrollbar-thumb { background: $border; }
+}
+
+.ag-section-empty {
+  padding: 10px 16px;
+  color: $fg-muted;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+
+  &::before { content: '// '; color: rgba($accent, 0.3); }
+}
+
+// ── Property rows ──────────────────────────────────────
+.ag-prop-row,
+.ag-output-row,
+.ag-style-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba($border, 0.5);
+
+  &:last-child { border-bottom: none; }
+}
+
+.ag-prop-name,
+.ag-output-name,
+.ag-style-name {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: $fg-muted;
+
+  &::before { content: '.'; color: rgba($accent, 0.4); }
+}
+
+.ag-prop-value,
+.ag-style-value {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  max-width: 200px;
+  word-break: break-all;
+  text-align: right;
+}
+
+.ag-output-type {
+  font-size: 10px;
+  color: $fg-muted;
+  background: rgba($accent-secondary, 0.06);
+  border: 1px solid rgba($accent-secondary, 0.15);
+  color: rgba($accent-secondary, 0.7);
+  padding: 1px 6px;
+  clip-path: polygon(0 3px, 3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px));
+}
+
+// ── Intent section ─────────────────────────────────────
+.ag-intent-section {
+  padding: 12px 16px;
+  background: $bg-section;
+}
+
+.ag-intent-label {
+  display: block;
+  margin-bottom: 8px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $fg-muted;
+
+  &::before { content: '$ '; color: $accent; }
+}
+
+.ag-intent-input {
+  width: 100%;
+  padding: 9px 12px;
+  background: $bg-card;
+  border: 1px solid $border;
+  clip-path: polygon(0 5px, 5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px));
+  color: $accent;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  resize: vertical;
+  transition: border-color 150ms, box-shadow 150ms;
+
+  &::placeholder {
+    color: rgba($fg-muted, 0.5);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: rgba($accent, 0.5);
+    box-shadow: 0 0 8px rgba($accent, 0.12), inset 0 0 4px rgba($accent, 0.04);
+  }
+}
+
+// ── Footer ─────────────────────────────────────────────
+.ag-panel-footer {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  background: $bg-card;
+  border-top: 1px solid $border;
+  flex-shrink: 0;
+}
+
+.ag-button {
+  flex: 1;
+  padding: 9px 12px;
+  border: none;
+  background: transparent;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 150ms;
+  clip-path: polygon(0 4px, 4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px));
+
+  &:active { transform: scale(0.97); }
+}
+
+.ag-button-primary {
+  border: 1px solid $accent;
+  color: $accent;
+  text-shadow: 0 0 5px rgba($accent, 0.3);
+
+  &:hover {
+    background: $accent;
+    color: #0a0a0f;
+    text-shadow: none;
+    box-shadow: 0 0 10px rgba($accent, 0.4);
+  }
+}
+
+.ag-button-success {
+  background: rgba($accent, 0.1);
+  border: 1px solid $accent;
+  color: $accent;
+  box-shadow: 0 0 8px rgba($accent, 0.2);
+}
+
+.ag-button-secondary {
+  border: 1px solid $border;
+  color: $fg-muted;
+
+  &:hover {
+    border-color: rgba($fg-muted, 0.4);
+    color: $fg;
+    background: rgba($fg-muted, 0.05);
+  }
+}
+
+.ag-mcp-button {
+  border: 1px solid #f59e0b;
+  color: #f59e0b;
+  text-shadow: 0 0 5px rgba(245, 158, 11, 0.3);
+
+  &:hover {
+    background: #f59e0b;
+    color: #0a0a0f;
+    text-shadow: none;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+  }
+
+  &.ag-button-success {
+    border-color: $accent;
+    color: $accent;
+    background: rgba($accent, 0.1);
+    text-shadow: none;
+  }
+}

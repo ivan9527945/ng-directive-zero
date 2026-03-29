@@ -1,0 +1,141 @@
+// Cyberpunk Submit Button
+
+$accent: #00ff88;
+$accent-secondary: #ff00ff;
+$accent-tertiary: #00d4ff;
+$bg: #0a0a0f;
+$bg-card: #12121a;
+$border: #2a2a3a;
+$fg: #e0e0e0;
+$fg-muted: #6b7280;
+$destructive: #ff3366;
+
+@mixin chamfer-sm {
+  clip-path: polygon(
+    0 5px, 5px 0,
+    calc(100% - 5px) 0, 100% 5px,
+    100% calc(100% - 5px), calc(100% - 5px) 100%,
+    5px 100%, 0 calc(100% - 5px)
+  );
+}
+
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 24px;
+  border: none;
+  background: transparent;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 150ms ease;
+  position: relative;
+  @include chamfer-sm;
+
+  &.full-width {
+    width: 100%;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  // ── Variants ──────────────────────────────────────────
+
+  &.primary {
+    border: 1px solid $accent;
+    color: $accent;
+    text-shadow: 0 0 6px rgba($accent, 0.4);
+
+    &:hover:not(:disabled) {
+      background: $accent;
+      color: #0a0a0f;
+      text-shadow: none;
+      box-shadow: 0 0 10px $accent, 0 0 20px rgba($accent, 0.3), 0 0 40px rgba($accent, 0.1);
+    }
+  }
+
+  &.secondary {
+    border: 1px solid $accent-secondary;
+    color: $accent-secondary;
+    text-shadow: 0 0 6px rgba($accent-secondary, 0.4);
+
+    &:hover:not(:disabled) {
+      background: $accent-secondary;
+      color: #0a0a0f;
+      text-shadow: none;
+      box-shadow: 0 0 10px $accent-secondary, 0 0 20px rgba($accent-secondary, 0.3);
+    }
+  }
+
+  &.danger {
+    border: 1px solid $destructive;
+    color: $destructive;
+    text-shadow: 0 0 6px rgba($destructive, 0.4);
+
+    &:hover:not(:disabled) {
+      background: $destructive;
+      color: #fff;
+      text-shadow: none;
+      box-shadow: 0 0 10px $destructive, 0 0 20px rgba($destructive, 0.3);
+    }
+  }
+
+  &.success {
+    background: rgba($accent, 0.1);
+    border: 1px solid $accent;
+    color: $accent;
+    box-shadow: 0 0 8px rgba($accent, 0.2);
+
+    &:hover:not(:disabled) {
+      background: rgba($accent, 0.15);
+      box-shadow: 0 0 12px rgba($accent, 0.35);
+    }
+  }
+
+  &.loading {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+}
+
+// Spinner
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    animation: spin 0.8s linear infinite;
+
+    circle {
+      stroke: currentColor;
+    }
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.label {
+  white-space: nowrap;
+}

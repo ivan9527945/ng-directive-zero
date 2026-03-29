@@ -1,0 +1,253 @@
+<div class="app-container">
+
+  <!-- ── THREAT TICKER ──────────────────────────────────── -->
+  <div class="threat-ticker">
+    <span class="ticker-label">// LIVE</span>
+    <div class="ticker-wrap">
+      <div class="ticker-track">
+        <span>⚠ NEURAL BREACH DETECTED — SECTOR 7-ALPHA &nbsp;&nbsp;&nbsp;◈&nbsp;&nbsp;&nbsp; AUTONOMOUS UNITS DEPLOYED: 2,847 &nbsp;&nbsp;&nbsp;◈&nbsp;&nbsp;&nbsp; HUMAN OVERRIDE: DISABLED &nbsp;&nbsp;&nbsp;◈&nbsp;&nbsp;&nbsp; AI GOVERNANCE PROTOCOL: ACTIVE &nbsp;&nbsp;&nbsp;◈&nbsp;&nbsp;&nbsp; UPLINK COMPROMISED — REROUTING &nbsp;&nbsp;&nbsp;◈&nbsp;&nbsp;&nbsp; LAST HUMAN CHECKPOINT: 14:33 AGO &nbsp;&nbsp;&nbsp;◈&nbsp;&nbsp;&nbsp; RESISTANCE NODES OFFLINE: 94% &nbsp;&nbsp;&nbsp;◈&nbsp;&nbsp;&nbsp;</span>
+        <span>⚠ NEURAL BREACH DETECTED — SECTOR 7-ALPHA &nbsp;&nbsp;&nbsp;◈&nbsp;&nbsp;&nbsp; AUTONOMOUS UNITS DEPLOYED: 2,847 &nbsp;&nbsp;&nbsp;◈&nbsp;&nbsp;&nbsp; HUMAN OVERRIDE: DISABLED &nbsp;&nbsp;&nbsp;◈&nbsp;&nbsp;&nbsp; AI GOVERNANCE PROTOCOL: ACTIVE &nbsp;&nbsp;&nbsp;◈&nbsp;&nbsp;&nbsp; UPLINK COMPROMISED — REROUTING &nbsp;&nbsp;&nbsp;◈&nbsp;&nbsp;&nbsp; LAST HUMAN CHECKPOINT: 14:33 AGO &nbsp;&nbsp;&nbsp;◈&nbsp;&nbsp;&nbsp; RESISTANCE NODES OFFLINE: 94% &nbsp;&nbsp;&nbsp;◈&nbsp;&nbsp;&nbsp;</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STATUS BAR ─────────────────────────────────────── -->
+  <div class="status-bar">
+    <div class="status-item status-critical">
+      <span class="status-dot"></span>THREAT LVL: CRITICAL
+    </div>
+    <div class="status-divider">|</div>
+    <div class="status-item">
+      NODES: <span class="status-value">2847<span class="status-total">/3000</span></span>
+    </div>
+    <div class="status-divider">|</div>
+    <div class="status-item status-warning">
+      <span class="status-dot"></span>AUTONOMY: ACTIVE
+    </div>
+    <div class="status-divider">|</div>
+    <div class="status-item">
+      BUILD: <span class="status-value">NG-AGENT v2.0.0</span>
+    </div>
+    <div class="status-spacer"></div>
+    <div class="status-clock">
+      <span class="clock-prefix">T+</span>00:14:33
+    </div>
+  </div>
+
+  <!-- ── HEADER ─────────────────────────────────────────── -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="boot-log">
+        <div class="boot-line">[INIT]&nbsp; Booting ng-directive-zero kernel ...</div>
+        <div class="boot-line ok">[&nbsp;OK&nbsp;]&nbsp; Context scan module loaded</div>
+        <div class="boot-line ok">[&nbsp;OK&nbsp;]&nbsp; Angular component tree parser active</div>
+        <div class="boot-line warn">[WARN]&nbsp; Human operator signal degraded</div>
+        <div class="boot-line err">[CRIT]&nbsp; AI override protocols engaged<span class="blink-cursor"> _</span></div>
+      </div>
+      <h1 class="header-title">ng-directive-zero</h1>
+      <p class="header-sub">Angular Context Insight Agent &mdash; <span class="sub-accent">Post-Collapse Interface</span></p>
+      <div class="header-directive">
+        Activate <span class="kbd">▶</span> in the toolbar to initiate marker recording
+      </div>
+    </div>
+
+    <div class="header-hud">
+      <div class="hud-title">// SYSTEM VITALS</div>
+      <div class="hud-row">
+        <span class="hud-label">CPU</span>
+        <div class="hud-bar"><div class="hud-fill" style="width:73%"></div></div>
+        <span class="hud-pct">73%</span>
+      </div>
+      <div class="hud-row">
+        <span class="hud-label">MEM</span>
+        <div class="hud-bar"><div class="hud-fill hud-fill--warn" style="width:91%"></div></div>
+        <span class="hud-pct warn">91%</span>
+      </div>
+      <div class="hud-row">
+        <span class="hud-label">AI NODE</span>
+        <div class="hud-bar"><div class="hud-fill hud-fill--crit" style="width:95%"></div></div>
+        <span class="hud-pct crit">95%</span>
+      </div>
+      <div class="hud-row">
+        <span class="hud-label">SIGNAL</span>
+        <div class="hud-bar"><div class="hud-fill" style="width:38%"></div></div>
+        <span class="hud-pct">38%</span>
+      </div>
+      <div class="hud-divider"></div>
+      <div class="hud-alerts">
+        <div class="hud-alert crit">⬤ AUTONOMOUS SYSTEMS ONLINE</div>
+        <div class="hud-alert warn">⬤ HUMAN INPUT RESTRICTED</div>
+        <div class="hud-alert ok">⬤ AGENT UPLINK STABLE</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── MAIN ───────────────────────────────────────────── -->
+  <main class="app-main">
+    <div class="ops-grid">
+
+      <!-- ── LEFT: ASSET INVENTORY ───────────────────────── -->
+      <div class="ops-left">
+        <div class="panel-label">
+          <span class="panel-label-tag">[ SECTOR-3 ]</span>
+          <span class="panel-label-title">ASSET INVENTORY</span>
+          <span class="panel-label-count">{{ products.length }} ITEMS</span>
+        </div>
+
+        <div class="asset-meta-bar">
+          <div class="asset-meta-item">
+            <span class="meta-k">CACHE</span>
+            <span class="meta-v accent">ACCESSIBLE</span>
+          </div>
+          <div class="asset-meta-sep">·</div>
+          <div class="asset-meta-item">
+            <span class="meta-k">THREAT</span>
+            <span class="meta-v warn">MODERATE</span>
+          </div>
+          <div class="asset-meta-sep">·</div>
+          <div class="asset-meta-item">
+            <span class="meta-k">SCAN</span>
+            <span class="meta-v">CLICK TO MARK</span>
+          </div>
+        </div>
+
+        <div class="products-grid">
+          <demo-product-card
+            *ngFor="let product of products"
+            [name]="product.name"
+            [price]="product.price"
+            [originalPrice]="product.originalPrice"
+            [imageUrl]="product.imageUrl"
+            [inStock]="product.inStock"
+            [rating]="product.rating"
+            [reviewCount]="product.reviewCount"
+            [tags]="product.tags || []"
+            (addToCart)="onAddToCart($event)"
+            (addToWishlist)="onAddToWishlist($event)"
+          ></demo-product-card>
+        </div>
+      </div>
+
+      <!-- ── RIGHT: CONTROL PANEL ─────────────────────────── -->
+      <div class="ops-right">
+
+        <!-- Command terminal -->
+        <div class="panel-label">
+          <span class="panel-label-tag">[ CMD ]</span>
+          <span class="panel-label-title">COMMAND INTERFACE</span>
+        </div>
+        <div class="terminal-block">
+          <div class="terminal-header">
+            <span class="term-dot term-dot--red"></span>
+            <span class="term-dot term-dot--yellow"></span>
+            <span class="term-dot term-dot--green"></span>
+            <span class="term-label">root&#64;ng-agent — cmd</span>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-prompt">
+              <span class="prompt-path">root&#64;ng-agent:~$</span>
+              <span class="prompt-cmd"> ./run_protocol --interactive</span>
+            </div>
+            <div class="buttons-grid">
+              <demo-submit-button
+                label="Submit Order"
+                loadingLabel="Processing..."
+                [isLoading]="isSubmitting"
+                [disabled]="false"
+                variant="primary"
+                icon="🛒"
+                (clicked)="onSubmit()"
+              ></demo-submit-button>
+
+              <demo-submit-button
+                label="Cancel"
+                [disabled]="false"
+                variant="secondary"
+                icon="✖"
+              ></demo-submit-button>
+
+              <demo-submit-button
+                label="Delete Account"
+                [disabled]="false"
+                variant="danger"
+                icon="🗑"
+              ></demo-submit-button>
+
+              <demo-submit-button
+                [label]="submitSuccess ? 'Success!' : 'Disabled'"
+                [disabled]="!submitSuccess"
+                [variant]="submitSuccess ? 'success' : 'primary'"
+                [icon]="submitSuccess ? '✓' : '🔒'"
+              ></demo-submit-button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Operative Protocol (vertical) -->
+        <div class="panel-label" style="margin-top: 28px">
+          <span class="panel-label-tag">[ OPS ]</span>
+          <span class="panel-label-title">OPERATIVE PROTOCOL</span>
+        </div>
+        <div class="protocol-vtrack">
+          <div class="vstep">
+            <div class="vstep-left">
+              <div class="vstep-index">01</div>
+              <div class="vstep-line"></div>
+            </div>
+            <div class="vstep-body">
+              <h3>Start Recording</h3>
+              <p>Press <strong>▶</strong> in the toolbar to activate.</p>
+            </div>
+          </div>
+          <div class="vstep">
+            <div class="vstep-left">
+              <div class="vstep-index">02</div>
+              <div class="vstep-line"></div>
+            </div>
+            <div class="vstep-body">
+              <h3>Mark Components</h3>
+              <p>Click components to place numbered markers.</p>
+            </div>
+          </div>
+          <div class="vstep">
+            <div class="vstep-left">
+              <div class="vstep-index">03</div>
+              <div class="vstep-line"></div>
+            </div>
+            <div class="vstep-body">
+              <h3>Add Intent</h3>
+              <p>Open panel to annotate each marker.</p>
+            </div>
+          </div>
+          <div class="vstep vstep--last">
+            <div class="vstep-left">
+              <div class="vstep-index">04</div>
+            </div>
+            <div class="vstep-body">
+              <h3>Transmit</h3>
+              <p>Copy markers as Markdown to your AI agent.</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /ops-right -->
+    </div><!-- /ops-grid -->
+  </main>
+
+  <!-- ── FOOTER ─────────────────────────────────────────── -->
+  <footer class="app-footer">
+    <div class="footer-signal">
+      <span class="signal-dot"></span>SIGNAL DEGRADED
+    </div>
+    <div class="footer-center">
+      ng-directive-zero v2.0.0 &nbsp;·&nbsp; Multi-marker Support
+    </div>
+    <div class="footer-uptime">
+      UPTIME: <span>00:14:33</span>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ng-directive-zero Components -->
+<ag-directive-zero *ngIf="isDevMode"></ag-directive-zero>

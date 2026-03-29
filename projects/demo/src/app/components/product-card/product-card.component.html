@@ -1,0 +1,68 @@
+<article class="product-card" [class.out-of-stock]="!inStock">
+
+  <!-- 降值標籤 -->
+  <div class="discount-badge" *ngIf="discountPercentage">
+    DEVALUED {{ discountPercentage }}%
+  </div>
+
+  <!-- 主體影像 -->
+  <div class="product-image">
+    <img [src]="imageUrl" [alt]="name" />
+    <!-- 掃描線 overlay -->
+    <div class="scan-overlay">
+      <div class="scan-line"></div>
+    </div>
+    <!-- 生物辨識框 -->
+    <div class="biometric-corner tl"></div>
+    <div class="biometric-corner tr"></div>
+    <div class="biometric-corner bl"></div>
+    <div class="biometric-corner br"></div>
+    <!-- 追蹤標記按鈕 -->
+    <button class="wishlist-btn" (click)="onAddToWishlist()" title="Flag for Surveillance">
+      ⊕
+    </button>
+  </div>
+
+  <!-- 資料區 -->
+  <div class="product-info">
+
+    <!-- 分類標籤 -->
+    <div class="tags" *ngIf="tags.length > 0">
+      <span class="tag" *ngFor="let tag of tags">{{ tag }}</span>
+    </div>
+
+    <!-- 受試者代號 -->
+    <h3 class="product-name">{{ name }}</h3>
+
+    <!-- 服從度評分 -->
+    <div class="rating" *ngIf="rating > 0">
+      <span class="rating-label">COMPLIANCE</span>
+      <span class="stars">
+        <span *ngFor="let star of stars" [class.filled]="star === '★'">{{ star }}</span>
+      </span>
+      <span class="review-count">[{{ reviewCount }} SCANS]</span>
+    </div>
+
+    <!-- 信用值 -->
+    <div class="price-section">
+      <span class="price-label">CREDIT VALUE</span>
+      <span class="current-price">{{ price.toFixed(0) }}<span class="price-unit"> CR</span></span>
+      <span class="original-price" *ngIf="originalPrice">{{ originalPrice.toFixed(0) }} CR</span>
+    </div>
+
+    <!-- 在押狀態 -->
+    <div class="stock-status" [class.in-stock]="inStock" [class.out]="!inStock">
+      {{ inStock ? '◉ IN CUSTODY' : '⊘ ESCAPED' }}
+    </div>
+
+    <!-- 執行按鈕 -->
+    <button
+      class="add-to-cart-btn"
+      [disabled]="!inStock"
+      (click)="onAddToCart()"
+    >
+      {{ inStock ? 'ACQUIRE SUBJECT' : 'LOCATE TARGET' }}
+    </button>
+
+  </div>
+</article>

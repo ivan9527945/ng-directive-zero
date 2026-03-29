@@ -1,0 +1,381 @@
+// Cyberpunk Settings Panel
+
+$accent: #00ff88;
+$accent-secondary: #ff00ff;
+$bg: #0a0a0f;
+$bg-card: #12121a;
+$bg-muted: #1c1c2e;
+$border: #2a2a3a;
+$fg: #e0e0e0;
+$fg-muted: #6b7280;
+$destructive: #ff3366;
+
+.ag-settings-panel {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  right: 0;
+  left: auto;
+  transform: none;
+  z-index: 999998;
+
+  width: 320px;
+  background: $bg-card;
+  border: 1px solid $border;
+  clip-path: polygon(
+    0 10px, 10px 0,
+    calc(100% - 10px) 0, 100% 10px,
+    100% calc(100% - 10px), calc(100% - 10px) 100%,
+    10px 100%, 0 calc(100% - 10px)
+  );
+  font-family: 'JetBrains Mono', monospace;
+  box-shadow: 0 0 20px rgba($accent, 0.06), 0 10px 40px rgba(0, 0, 0, 0.7);
+
+  // Top neon line
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10px;
+    right: 10px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, $accent, transparent);
+    pointer-events: none;
+  }
+}
+
+// Header
+.ag-settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid $border;
+  background: $bg;
+  position: relative;
+
+  // Terminal dots
+  &::before {
+    content: '● ● ●';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 7px;
+    letter-spacing: 3px;
+    color: transparent;
+    text-shadow: 0 0 0 #ff3366, 8px 0 0 #f59e0b, 16px 0 0 $accent;
+    pointer-events: none;
+  }
+}
+
+.ag-settings-title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding-left: 36px;
+}
+
+.ag-logo {
+  font-family: 'Orbitron', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: $accent;
+  text-shadow: 0 0 6px rgba($accent, 0.4);
+}
+
+.ag-version {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: $fg-muted;
+}
+
+.ag-theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid rgba($accent, 0.2);
+  background: transparent;
+  color: $fg-muted;
+  cursor: pointer;
+  transition: all 150ms ease;
+  clip-path: polygon(0 4px, 4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px));
+
+  svg { width: 16px; height: 16px; stroke-width: 1.5; }
+
+  &:hover {
+    background: rgba($accent, 0.08);
+    border-color: rgba($accent, 0.4);
+    color: $accent;
+    filter: drop-shadow(0 0 4px rgba($accent, 0.4));
+  }
+}
+
+// Section
+.ag-settings-section {
+  padding: 14px 18px;
+  border-bottom: 1px solid $border;
+
+  &:last-child { border-bottom: none; }
+}
+
+.ag-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ag-settings-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $fg-muted;
+}
+
+// Help icon
+.ag-help-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  font-size: 9px;
+  font-family: 'Orbitron', monospace;
+  color: rgba($accent, 0.5);
+  border: 1px solid rgba($accent, 0.2);
+  clip-path: polygon(0 3px, 3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px));
+  cursor: help;
+}
+
+// Dropdown
+.ag-dropdown {
+  select {
+    padding: 6px 28px 6px 10px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: $accent;
+    background: $bg;
+    border: 1px solid rgba($accent, 0.25);
+    clip-path: polygon(0 4px, 4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px));
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%2300ff88' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    transition: border-color 150ms, box-shadow 150ms;
+
+    &:focus {
+      outline: none;
+      border-color: rgba($accent, 0.5);
+      box-shadow: 0 0 6px rgba($accent, 0.12);
+    }
+
+    option {
+      background: $bg-card;
+      color: $fg;
+    }
+  }
+}
+
+// Toggle switch (cyberpunk style)
+.ag-toggle {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
+.ag-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $bg-muted;
+  border: 1px solid $border;
+  transition: 200ms;
+  clip-path: polygon(0 4px, 4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px));
+
+  &::before {
+    position: absolute;
+    content: '';
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background: $fg-muted;
+    clip-path: polygon(0 3px, 3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px));
+    transition: 200ms;
+  }
+}
+
+input:checked + .ag-toggle-slider {
+  background: rgba($accent, 0.1);
+  border-color: rgba($accent, 0.4);
+  box-shadow: 0 0 6px rgba($accent, 0.2);
+
+  &::before {
+    transform: translateX(18px);
+    background: $accent;
+    box-shadow: 0 0 4px rgba($accent, 0.5);
+  }
+}
+
+// Color picker
+.ag-color-picker {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.ag-color-option {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 2px solid transparent;
+  clip-path: polygon(0 5px, 5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px));
+  cursor: pointer;
+  transition: all 150ms ease;
+  position: relative;
+
+  &:hover {
+    filter: brightness(1.2);
+    transform: scale(1.1);
+  }
+
+  &.selected {
+    border-color: $fg;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  }
+}
+
+// Options (checkboxes)
+.ag-options-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ag-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $fg-muted;
+  cursor: pointer;
+  transition: color 150ms;
+
+  &:hover { color: $fg; }
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: $accent;
+    cursor: pointer;
+  }
+}
+
+// Link section
+.ag-link-section {
+  padding: 12px 18px;
+}
+
+.ag-settings-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $fg-muted;
+  text-decoration: none;
+  transition: color 150ms;
+
+  svg { width: 14px; height: 14px; color: rgba($fg-muted, 0.5); }
+
+  &:hover {
+    color: $accent;
+    svg { color: $accent; }
+  }
+}
+
+// ── MCP Status ────────────────────────────────────────
+.ag-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $fg-muted;
+  padding: 6px 10px;
+  background: $bg;
+  border: 1px solid $border;
+  clip-path: polygon(0 4px, 4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px));
+
+  .ag-status-dot {
+    width: 6px;
+    height: 6px;
+    background: rgba($fg-muted, 0.4);
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    transition: background-color 300ms;
+  }
+
+  &.connected {
+    color: $accent;
+    border-color: rgba($accent, 0.3);
+    background: rgba($accent, 0.04);
+
+    .ag-status-dot {
+      background: $accent;
+      box-shadow: 0 0 4px rgba($accent, 0.6);
+    }
+  }
+}
+
+.ag-btn-small {
+  padding: 4px 10px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0a0a0f;
+  background: $accent;
+  border: none;
+  clip-path: polygon(0 3px, 3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px));
+  cursor: pointer;
+  transition: filter 150ms;
+  box-shadow: 0 0 8px rgba($accent, 0.3);
+
+  &:hover { filter: brightness(1.1); }
+}
+
+.ag-error-text {
+  color: $destructive;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}

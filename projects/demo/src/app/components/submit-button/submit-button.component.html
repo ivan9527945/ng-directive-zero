@@ -1,0 +1,24 @@
+<button
+  [class]="'submit-btn ' + variant"
+  [class.loading]="isLoading"
+  [class.full-width]="fullWidth"
+  [disabled]="isDisabled"
+  (click)="onClick()"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
+  <!-- Loading Spinner -->
+  <span class="spinner" *ngIf="isLoading">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="31.4 31.4" stroke-linecap="round">
+        <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="0.8s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+  </span>
+
+  <!-- Icon -->
+  <span class="icon" *ngIf="icon && !isLoading">{{ icon }}</span>
+
+  <!-- Label -->
+  <span class="label">{{ displayLabel }}</span>
+</button>

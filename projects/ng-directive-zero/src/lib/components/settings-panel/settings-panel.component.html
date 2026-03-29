@@ -1,0 +1,113 @@
+<div class="ag-settings-panel">
+  <!-- 標題 -->
+  <header class="ag-settings-header">
+    <div class="ag-settings-title">
+      <span class="ag-logo">/agentation</span>
+      <span class="ag-version">v1.0.0</span>
+    </div>
+    <button class="ag-theme-toggle" title="Toggle Theme" (click)="toggleTheme()">
+      <!-- 月亮圖示 (light mode) -->
+      <svg *ngIf="!settings.isDarkMode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <!-- 太陽圖示 (dark mode) -->
+      <svg *ngIf="settings.isDarkMode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3"/>
+        <line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/>
+        <line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- 輸出詳細程度 -->
+  <section class="ag-settings-section">
+    <div class="ag-settings-row">
+      <label class="ag-settings-label">
+        Output Detail
+        <span class="ag-help-icon" title="Level of detail in the generated output">?</span>
+      </label>
+      <div class="ag-dropdown">
+        <select
+          [value]="settings.outputDetail"
+          (change)="selectOutputDetail($any($event.target).value)"
+        >
+          <option value="compact">Compact</option>
+          <option value="standard">Standard</option>
+          <option value="detailed">Detailed</option>
+          <option value="forensic">Forensic</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Angular 組件開關 -->
+  <!-- <section class="ag-settings-section">
+    <div class="ag-settings-row">
+      <label class="ag-settings-label">
+        Angular Components
+        <span class="ag-help-icon" title="Include Angular component metadata in output">?</span>
+      </label>
+      <label class="ag-toggle">
+        <input
+          type="checkbox"
+          [checked]="settings.showAngularComponents"
+          (change)="toggleAngularComponents()"
+        />
+        <span class="ag-toggle-slider"></span>
+      </label>
+    </div>
+  </section> -->
+
+  <!-- 標記顏色 -->
+  <section class="ag-settings-section">
+    <label class="ag-settings-label">Marker Colour</label>
+    <div class="ag-color-picker">
+      <button
+        *ngFor="let color of colors"
+        class="ag-color-option"
+        [class.selected]="settings.markerColor === color"
+        [style.background-color]="colorHex[color]"
+        (click)="selectColor(color)"
+        [title]="color"
+      ></button>
+    </div>
+  </section>
+
+  <!-- 其他選項 -->
+  <section class="ag-settings-section ag-options-section">
+    <label class="ag-checkbox-row">
+      <input
+        type="checkbox"
+        [checked]="settings.clearOnCopy"
+        (change)="toggleClearOnCopy()"
+      />
+      <span>Clear on copy/send</span>
+      <span class="ag-help-icon" title="Clear markers after copying to clipboard">?</span>
+    </label>
+
+    <!-- <label class="ag-checkbox-row">
+      <input
+        type="checkbox"
+        [checked]="settings.blockPageInteractions"
+        (change)="toggleBlockInteractions()"
+      />
+      <span>Block page interactions</span>
+    </label> -->
+  </section>
+
+  <!-- MCP & Webhooks 連結 -->
+  <!-- <section class="ag-settings-section ag-link-section">
+    <a href="javascript:void(0)" class="ag-settings-link">
+      Manage MCP &amp; Webhooks
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </a>
+  </section> -->
+</div>

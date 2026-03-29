@@ -1,0 +1,87 @@
+/* Cyberpunk / Glitch Design System - Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Share+Tech+Mono&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #0a0a0f;
+  color: #e0e0e0;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+// Global scanlines overlay
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.12) 2px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  pointer-events: none;
+  z-index: 9999999;
+}
+
+// Global keyframes
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@keyframes glitch {
+  0%, 88%, 100% { transform: translate(0) skew(0deg); clip-path: none; }
+  89% { transform: translate(-3px, 1px) skew(0.5deg); clip-path: polygon(0 15%, 100% 15%, 100% 30%, 0 30%); }
+  90% { transform: translate(3px, -1px) skew(-0.5deg); clip-path: polygon(0 60%, 100% 60%, 100% 75%, 0 75%); }
+  92% { transform: translate(-1px, 0) skew(0.2deg); clip-path: none; }
+  94% { transform: translate(2px, 1px) skew(0deg); }
+}
+
+@keyframes rgbShift {
+  0%, 100% { text-shadow: -2px 0 #ff00ff, 2px 0 #00d4ff, 0 0 10px rgba(0, 255, 136, 0.5); }
+  50% { text-shadow: 2px 0 #ff00ff, -2px 0 #00d4ff, 0 0 10px rgba(0, 255, 136, 0.5); }
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: 0 0 5px #00ff88, 0 0 10px rgba(0, 255, 136, 0.25),
+                inset 0 0 5px rgba(0, 255, 136, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 10px #00ff88, 0 0 25px rgba(0, 255, 136, 0.4),
+                0 0 50px rgba(0, 255, 136, 0.1),
+                inset 0 0 10px rgba(0, 255, 136, 0.08);
+  }
+}
+
+@keyframes recordingPulse {
+  0%, 100% {
+    box-shadow: 0 0 5px #ff3366, 0 0 15px rgba(255, 51, 102, 0.25),
+                0 0 0 1px rgba(255, 51, 102, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 15px #ff3366, 0 0 30px rgba(255, 51, 102, 0.5),
+                0 0 0 1px #ff3366;
+  }
+}
+
+@keyframes markerPop {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(-15deg); opacity: 0; }
+  60% { transform: translate(-50%, -50%) scale(1.2) rotate(5deg); }
+  100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideDown {
+  from { max-height: 0; opacity: 0; }
+  to { max-height: 400px; opacity: 1; }
+}

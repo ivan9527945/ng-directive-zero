@@ -1,0 +1,83 @@
+<div class="ag-markers-panel">
+  <!-- 標題 -->
+  <header class="ag-markers-header">
+    <h3 class="ag-markers-title">
+      <span class="ag-markers-icon">📌</span>
+      Marked Components
+      <span class="ag-markers-count">{{ markers.length }}</span>
+    </h3>
+    <button class="ag-close-btn" (click)="close()" title="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- 標記列表 -->
+  <div class="ag-markers-list" *ngIf="markers.length > 0">
+    <div
+      class="ag-marker-item"
+      *ngFor="let marker of markers; trackBy: trackByIndex"
+    >
+      <!-- 標記編號 -->
+      <div
+        class="ag-marker-number"
+        [style.background-color]="colorHex[marker.color]"
+        (click)="onScrollTo(marker.index)"
+      >
+        {{ marker.index }}
+      </div>
+
+      <!-- 標記內容 -->
+      <div class="ag-marker-content">
+        <div class="ag-marker-component">
+          <span class="ag-marker-name">{{ marker.target.displayName }}</span>
+          <code class="ag-marker-selector">&lt;{{ marker.target.selector }}&gt;</code>
+        </div>
+
+        <!-- 意圖顯示/編輯 -->
+        <div class="ag-marker-intent" *ngIf="editingIndex !== marker.index">
+          <span class="ag-intent-text" *ngIf="marker.intent">{{ marker.intent }}</span>
+          <button class="ag-edit-btn" (click)="startEdit(marker)" title="Edit intent">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+            {{ marker.intent ? 'Edit' : 'Add intent' }}
+          </button>
+        </div>
+
+        <!-- 編輯模式 -->
+        <div class="ag-marker-edit" *ngIf="editingIndex === marker.index">
+          <textarea
+            class="ag-edit-textarea"
+            [(ngModel)]="editingIntent"
+            (keydown)="onKeyDown($event)"
+            placeholder="Describe what you want AI to do..."
+            rows="2"
+          ></textarea>
+          <div class="ag-edit-actions">
+            <button class="ag-save-btn" (click)="saveEdit()">Save</button>
+            <button class="ag-cancel-btn" (click)="cancelEdit()">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 刪除按鈕 -->
+      <button class="ag-delete-btn" (click)="onDelete(marker.index)" title="Delete marker">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- 空狀態 -->
+  <div class="ag-markers-empty" *ngIf="markers.length === 0">
+    <span class="ag-empty-icon">📭</span>
+    <p>No markers yet</p>
+    <span class="ag-empty-hint">Click on components to add markers</span>
+  </div>
+</div>

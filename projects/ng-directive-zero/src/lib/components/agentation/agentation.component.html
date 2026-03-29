@@ -1,0 +1,17 @@
+<ng-container *ngIf="isDev">
+  <!-- Overlay (多選標記) -->
+  <ag-overlay [markers]="session.markers" [settings]="settings" [isRecording]="toolbarState.isRecording"
+    [isMinimized]="toolbarState.isMinimized" (markerAdded)="onMarkerAdded($event)"
+    (markerDeleted)="onDeleteMarker($event)" (recordingChanged)="onRecordingChanged($event)"></ag-overlay>
+
+  <!-- Toolbar (浮動工具列) -->
+  <ag-toolbar [session]="session" [settings]="settings" [state]="toolbarState" (startRecording)="onStartRecording()"
+    (stopRecording)="onStopRecording()" (toggleMarkers)="onToggleMarkers()" (copyToClipboard)="onCopyToClipboard()"
+    (clearMarkers)="onClearMarkers()" (toggleSettings)="onToggleSettings()" (toggleMinimize)="onToggleMinimize()"
+    (closeToolbar)="onCloseToolbar()" (settingsChange)="onSettingsChange($event)"></ag-toolbar>
+
+  <!-- Markers Panel -->
+  <ag-markers-panel *ngIf="toolbarState.showMarkers" [markers]="session.markers" (deleteMarker)="onDeleteMarker($event)"
+    (updateIntent)="onUpdateIntent($event)" (scrollToMarker)="onScrollToMarker($event)"
+    (closed)="toolbarState.showMarkers = false"></ag-markers-panel>
+</ng-container>

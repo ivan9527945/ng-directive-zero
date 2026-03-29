@@ -1,0 +1,58 @@
+<div class="ag-inline-editor" [ngStyle]="getEditorStyle()">
+  <!-- 標題 -->
+  <div class="ag-editor-header">
+    <button class="ag-editor-title" (click)="toggleStylePanel()" title="Toggle styles">
+      <svg 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        stroke="currentColor" 
+        stroke-width="2"
+        [class.expanded]="isStyleExpanded"
+      >
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+      {{ getElementDescription() }}
+    </button>
+  </div>
+
+  <!-- 輸入框 -->
+  <div class="ag-editor-body">
+    <textarea
+      class="ag-editor-input"
+      [(ngModel)]="tempIntent"
+      placeholder="Enter your feedback or intent..."
+      rows="4"
+      (keydown.ctrl.enter)="onSave()"
+      (keydown.esc)="onCancel()"
+      autofocus
+    ></textarea>
+  </div>
+
+  <!-- 樣式詳情區塊 -->
+  <div class="ag-editor-styles" *ngIf="isStyleExpanded">
+    <div class="ag-styles-header">Computed Styles</div>
+    <div class="ag-styles-list">
+      <div class="ag-style-item" *ngFor="let style of getStyleEntries()">
+        <span class="ag-style-key">{{ style.key }}:</span>
+        <span class="ag-style-value">{{ formatValue(style.value) }}</span>
+      </div>
+      <div class="ag-styles-empty" *ngIf="getStyleEntries().length === 0">
+        No significant styles found
+      </div>
+    </div>
+  </div>
+
+  <!-- 操作按鈕 -->
+  <div class="ag-editor-footer">
+    <button class="ag-btn ag-btn-delete" (click)="onDelete()" title="Delete marker">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="3 6 5 6 21 6"></polyline>
+        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+      </svg>
+    </button>
+    <div class="ag-btn-group">
+      <button class="ag-btn ag-btn-cancel" (click)="onCancel()">Cancel</button>
+      <button class="ag-btn ag-btn-save" (click)="onSave()">Save</button>
+    </div>
+  </div>
+</div>

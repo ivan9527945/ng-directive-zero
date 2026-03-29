@@ -1,0 +1,393 @@
+// Cyberpunk Markers Panel
+
+$accent: #00ff88;
+$accent-secondary: #ff00ff;
+$accent-tertiary: #00d4ff;
+$bg: #0a0a0f;
+$bg-card: #12121a;
+$bg-muted: #1c1c2e;
+$border: #2a2a3a;
+$fg: #e0e0e0;
+$fg-muted: #6b7280;
+$destructive: #ff3366;
+
+.ag-markers-panel {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999998;
+
+  width: 400px;
+  max-height: 420px;
+  background: $bg-card;
+  border: 1px solid $border;
+  clip-path: polygon(
+    0 12px, 12px 0,
+    calc(100% - 12px) 0, 100% 12px,
+    100% calc(100% - 12px), calc(100% - 12px) 100%,
+    12px 100%, 0 calc(100% - 12px)
+  );
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 20px rgba($accent, 0.06), 0 10px 40px rgba(0, 0, 0, 0.7);
+
+  // Top neon line
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 12px;
+    right: 12px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, $accent, transparent);
+    z-index: 1;
+    pointer-events: none;
+  }
+}
+
+// Header
+.ag-markers-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid $border;
+  background: $bg;
+  flex-shrink: 0;
+  position: relative;
+
+  // Terminal dots
+  &::before {
+    content: '● ● ●';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 7px;
+    letter-spacing: 3px;
+    color: transparent;
+    text-shadow: 0 0 0 #ff3366, 8px 0 0 #f59e0b, 16px 0 0 $accent;
+    pointer-events: none;
+  }
+}
+
+.ag-markers-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding-left: 36px;
+  font-family: 'Orbitron', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: $fg;
+}
+
+.ag-markers-icon {
+  font-size: 14px;
+}
+
+.ag-markers-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  background: $accent;
+  color: #0a0a0f;
+  font-family: 'Orbitron', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  clip-path: polygon(0 4px, 4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px));
+  box-shadow: 0 0 6px rgba($accent, 0.5);
+}
+
+.ag-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid rgba($destructive, 0.3);
+  background: transparent;
+  color: $fg-muted;
+  cursor: pointer;
+  transition: all 150ms;
+  clip-path: polygon(0 4px, 4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px));
+
+  svg { width: 14px; height: 14px; }
+
+  &:hover {
+    background: rgba($destructive, 0.15);
+    border-color: $destructive;
+    color: $destructive;
+    box-shadow: 0 0 6px rgba($destructive, 0.3);
+  }
+}
+
+// Markers list
+.ag-markers-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-track { background: $bg; }
+  &::-webkit-scrollbar-thumb { background: $border; }
+}
+
+// Marker item
+.ag-marker-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 10px;
+  border: 1px solid transparent;
+  clip-path: polygon(0 5px, 5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px));
+  transition: background 100ms, border-color 100ms;
+
+  & + & {
+    margin-top: 4px;
+  }
+
+  &:hover {
+    background: $bg-muted;
+    border-color: rgba($accent, 0.15);
+
+    .ag-delete-btn { opacity: 1; }
+  }
+}
+
+// Marker number (chamfered square instead of circle)
+.ag-marker-number {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  color: #0a0a0f;
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  clip-path: polygon(0 5px, 5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px));
+  cursor: pointer;
+  transition: filter 150ms, transform 100ms;
+
+  &:hover {
+    filter: brightness(1.2);
+    transform: scale(1.1);
+  }
+}
+
+// Content
+.ag-marker-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.ag-marker-component {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
+}
+
+.ag-marker-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: $fg;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ag-marker-selector {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: $accent-tertiary;
+  background: rgba($accent-tertiary, 0.06);
+  border: 1px solid rgba($accent-tertiary, 0.15);
+  padding: 0 5px;
+  clip-path: polygon(0 3px, 3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px));
+}
+
+// Intent
+.ag-marker-intent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ag-intent-text {
+  font-size: 11px;
+  color: $fg-muted;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+.ag-edit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border: 1px solid rgba($accent, 0.2);
+  background: transparent;
+  color: rgba($accent, 0.6);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 150ms;
+  clip-path: polygon(0 3px, 3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px));
+
+  svg { width: 10px; height: 10px; }
+
+  &:hover {
+    background: rgba($accent, 0.08);
+    border-color: rgba($accent, 0.4);
+    color: $accent;
+  }
+}
+
+// Edit mode
+.ag-marker-edit {
+  margin-top: 7px;
+}
+
+.ag-edit-textarea {
+  width: 100%;
+  padding: 7px 10px;
+  background: $bg;
+  border: 1px solid $border;
+  clip-path: polygon(0 4px, 4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px));
+  color: $accent;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  resize: none;
+
+  &::placeholder { color: rgba($fg-muted, 0.5); }
+
+  &:focus {
+    outline: none;
+    border-color: rgba($accent, 0.5);
+    box-shadow: 0 0 6px rgba($accent, 0.1);
+  }
+}
+
+.ag-edit-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 7px;
+}
+
+.ag-save-btn,
+.ag-cancel-btn {
+  padding: 5px 12px;
+  border: none;
+  background: transparent;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 150ms;
+  clip-path: polygon(0 3px, 3px 0, calc(100% - 3px) 0, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0 calc(100% - 3px));
+}
+
+.ag-save-btn {
+  border: 1px solid $accent;
+  color: $accent;
+
+  &:hover {
+    background: $accent;
+    color: #0a0a0f;
+    box-shadow: 0 0 8px rgba($accent, 0.4);
+  }
+}
+
+.ag-cancel-btn {
+  border: 1px solid $border;
+  color: $fg-muted;
+
+  &:hover {
+    border-color: rgba($fg-muted, 0.4);
+    color: $fg;
+    background: rgba($fg-muted, 0.05);
+  }
+}
+
+// Delete button
+.ag-delete-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid transparent;
+  background: transparent;
+  color: rgba($destructive, 0.4);
+  cursor: pointer;
+  opacity: 0;
+  transition: all 150ms;
+  clip-path: polygon(0 4px, 4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px));
+
+  svg { width: 12px; height: 12px; }
+
+  &:hover {
+    background: rgba($destructive, 0.12);
+    border-color: rgba($destructive, 0.4);
+    color: $destructive;
+    opacity: 1;
+    box-shadow: 0 0 6px rgba($destructive, 0.2);
+  }
+}
+
+// Empty state
+.ag-markers-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+  text-align: center;
+  gap: 10px;
+}
+
+.ag-empty-icon {
+  font-size: 28px;
+  opacity: 0.5;
+}
+
+.ag-markers-empty p {
+  margin: 0;
+  font-family: 'Orbitron', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $fg-muted;
+}
+
+.ag-empty-hint {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: rgba($fg-muted, 0.6);
+  letter-spacing: 0.08em;
+
+  &::before {
+    content: '> ';
+    color: rgba($accent, 0.4);
+  }
+}

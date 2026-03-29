@@ -1,0 +1,39 @@
+{
+  "name": "ng-directive-zero",
+  "version": "1.0.6",
+  "description": "Angular implementation of Agentation",
+  "author": "Ivan",
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "agentation",
+    "annotation"
+  ],
+  "peerDependencies": {
+    "@angular/common": ">=14.0.0 <21.0.0",
+    "@angular/core": ">=14.0.0 <21.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ivan9527945/ng-directive-zero"
+  },
+  "homepage": "https://github.com/ivan9527945/ng-directive-zero",
+  "bugs": {
+    "url": "https://github.com/ivan9527945/ng-directive-zero/issues"
+  },
+  "module": "fesm2022/ng-directive-zero.mjs",
+  "typings": "index.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./fesm2022/ng-directive-zero.mjs"
+    }
+  }
+}

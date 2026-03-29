@@ -1,0 +1,142 @@
+<div class="ag-panel" *ngIf="selectedNode">
+  <!-- 標題列 -->
+  <header class="ag-panel-header">
+    <div class="ag-panel-title">
+      <span class="ag-component-icon">📦</span>
+      <span class="ag-component-name">{{ selectedNode.displayName }}</span>
+    </div>
+    <button class="ag-close-button" (click)="clearSelection()" title="Close (Esc)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- 組件基本資訊 -->
+  <section class="ag-section ag-info-section">
+    <div class="ag-info-row">
+      <span class="ag-info-label">Selector</span>
+      <code class="ag-info-value">&lt;{{ selectedNode.selector }}&gt;</code>
+    </div>
+    <div class="ag-info-row" *ngIf="selectedNode.parent">
+      <span class="ag-info-label">Parent</span>
+      <code class="ag-info-value">{{ selectedNode.parent.displayName }}</code>
+    </div>
+    <div class="ag-info-row" *ngIf="selectedNode.directives.length > 0">
+      <span class="ag-info-label">Directives</span>
+      <div class="ag-directive-list">
+        <span class="ag-directive-tag" *ngFor="let dir of selectedNode.directives">{{ dir }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- @Input 綁定 -->
+  <section class="ag-section">
+    <header class="ag-section-header" (click)="toggleSection('inputs')">
+      <span class="ag-section-icon">{{ expandedSections.inputs ? '▼' : '▶' }}</span>
+      <span class="ag-section-title">&#64;Input Bindings</span>
+      <span class="ag-section-count">{{ getInputEntries().length }}</span>
+    </header>
+    <div class="ag-section-content" *ngIf="expandedSections.inputs && getInputEntries().length > 0">
+      <div class="ag-prop-row" *ngFor="let entry of getInputEntries()">
+        <span class="ag-prop-name">{{ entry.key }}</span>
+        <span class="ag-prop-value" [style.color]="getValueColor(entry.value)">
+          {{ formatValue(entry.value) }}
+        </span>
+      </div>
+    </div>
+    <div class="ag-section-empty" *ngIf="expandedSections.inputs && getInputEntries().length === 0">
+      No &#64;Input bindings
+    </div>
+  </section>
+
+  <!-- @Output 事件 -->
+  <section class="ag-section" *ngIf="selectedNode.outputs.length > 0">
+    <header class="ag-section-header" (click)="toggleSection('outputs')">
+      <span class="ag-section-icon">{{ expandedSections.outputs ? '▼' : '▶' }}</span>
+      <span class="ag-section-title">&#64;Output Events</span>
+      <span class="ag-section-count">{{ selectedNode.outputs.length }}</span>
+    </header>
+    <div class="ag-section-content" *ngIf="expandedSections.outputs">
+      <div class="ag-output-row" *ngFor="let output of selectedNode.outputs">
+        <span class="ag-output-name">{{ output }}</span>
+        <span class="ag-output-type">EventEmitter</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 公開屬性 -->
+  <section class="ag-section" *ngIf="getPropertyEntries().length > 0">
+    <header class="ag-section-header" (click)="toggleSection('properties')">
+      <span class="ag-section-icon">{{ expandedSections.properties ? '▼' : '▶' }}</span>
+      <span class="ag-section-title">Public Properties</span>
+      <span class="ag-section-count">{{ getPropertyEntries().length }}</span>
+    </header>
+    <div class="ag-section-content" *ngIf="expandedSections.properties">
+      <div class="ag-prop-row" *ngFor="let entry of getPropertyEntries()">
+        <span class="ag-prop-name">{{ entry.key }}</span>
+        <span class="ag-prop-value" [style.color]="getValueColor(entry.value)">
+          {{ formatValue(entry.value) }}
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Computed Styles -->
+  <section class="ag-section">
+    <header class="ag-section-header" (click)="toggleSection('styles')">
+      <span class="ag-section-icon">{{ expandedSections.styles ? '▼' : '▶' }}</span>
+      <span class="ag-section-title">Computed Styles</span>
+      <span class="ag-section-count">{{ getStyleEntries().length }}</span>
+    </header>
+    <div class="ag-section-content" *ngIf="expandedSections.styles">
+      <div class="ag-style-row" *ngFor="let entry of getStyleEntries()">
+        <span class="ag-style-name">{{ entry.key }}</span>
+        <span class="ag-style-value">{{ entry.value }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 使用者意圖輸入 -->
+  <section class="ag-section ag-intent-section">
+    <label class="ag-intent-label" for="userIntent">
+      💬 Your Instruction for AI
+    </label>
+    <textarea
+      id="userIntent"
+      class="ag-intent-input"
+      [(ngModel)]="userIntent"
+      placeholder="e.g., 'This button should be disabled when loading'"
+      rows="3"
+    ></textarea>
+  </section>
+
+  <!-- 操作按鈕 -->
+  <footer class="ag-panel-footer">
+    <!-- MCP Send Button -->
+    <button
+      *ngIf="(mcpStatus$ | async)?.connected"
+      class="ag-button ag-button-primary ag-mcp-button"
+      (click)="sendToAgent()"
+      [class.ag-button-success]="sent"
+    >
+      <span *ngIf="!sent">🤖 Send to Agent</span>
+      <span *ngIf="sent">✅ Sent!</span>
+    </button>
+
+    <button
+      class="ag-button ag-button-primary"
+      (click)="copyToClipboard()"
+      [class.ag-button-success]="copied"
+    >
+      <span *ngIf="!copied">📋 Copy with Intent</span>
+      <span *ngIf="copied">✅ Copied!</span>
+    </button>
+    <button
+      class="ag-button ag-button-secondary"
+      (click)="copyComponentInfo()"
+    >
+      📄 Copy Info Only
+    </button>
+  </footer>
+</div>
