@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, timer, of, firstValueFrom } from 'rxjs';
+import { BehaviorSubject, Observable, timer, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { v4 as uuidv4 } from 'uuid';
 import { UserAnnotation } from '../models/component-node.interface';
@@ -40,7 +40,7 @@ export class McpService {
      */
     async checkConnection(): Promise<boolean> {
         try {
-            await firstValueFrom(this.http.get(`${this.API_URL}/status`));
+            await this.http.get(`${this.API_URL}/status`).toPromise();
             this.updateStatus({ connected: true, lastError: undefined });
             return true;
         } catch (error) {
@@ -86,7 +86,7 @@ export class McpService {
         };
 
         try {
-            await firstValueFrom(this.http.post(`${this.API_URL}/annotations`, mcpAnnotation));
+            await this.http.post(`${this.API_URL}/annotations`, mcpAnnotation).toPromise();
 
             // Optimistic update
             const currentList = this._annotations.value;
